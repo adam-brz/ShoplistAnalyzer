@@ -1,0 +1,112 @@
+<AppLayout>:
+    Label:
+        text: "Bill Analyzer"
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, 0.05
+
+    TextInput:
+        id: file_input
+        multiline: False
+        pos_hint: {"x": 0, "top": 0.95}
+        size_hint: 0.8, 0.05
+
+    Button:
+        text: "Browse file"
+        pos_hint: {"x": 0.8, "top": 0.95}
+        size_hint: 0.2, 0.05
+
+    ActionButtonsWidget:
+        id: actionButtons
+        pos_hint: {"x": 0, "top": 0.9}
+        size_hint: 1, 0.1
+    
+    ProductListWidget:
+        pos_hint: {"x": 0, "top": 0.8}
+        size_hint: 1, 0.7
+
+    Label:
+        text: "Total sum:"
+        pos_hint: {"x": 0, "top": 0.1}
+        size_hint: 1, 0.05
+
+    Label:
+        text: "Expected sum:"
+        pos_hint: {"x": 0, "top": 0.05}
+        size_hint: 1, 0.05
+
+<ActionButtonsWidget>:
+    Button:
+        id: button_generate
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 0.25, 1
+        text: "Generate"
+        on_release: root.generatePressed()
+
+    Button:
+        pos_hint: {"x": 0.25, "top": 1}
+        size_hint: 0.25, 1
+        text: "Clear list"
+        on_release: root.clearPressed()
+
+    Button:
+        pos_hint: {"x": 0.5, "top": 1}
+        size_hint: 0.25, 1
+        text: "Options"
+        on_release: root.optionsPressed()
+
+    Button:
+        pos_hint: {"x": 0.75, "top": 1}
+        size_hint: 0.25, 1
+        text: "Results"
+        on_release: root.resultsPressed()
+
+<ProductListWidget>:
+    ScrollView:
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, None
+        size: root.width, root.height
+
+        do_scroll_x: False
+        do_scroll_y: True
+
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            row_default_height: root.height * 0.1
+            height: self.minimum_height
+
+            GridLayout:
+                cols: 3
+
+                Label:
+                    text: "Product Name"
+
+                Label:
+                    text: "Product Price"
+
+                Label:
+                    text: "Persons"
+
+            ProductEntryWidget:
+            ProductEntryWidget:
+            ProductEntryWidget:
+            ProductEntryWidget:
+            ProductEntryWidget:
+
+<ProductEntryWidget>:
+    cols: 3
+
+    Label:
+        text: "Product"
+
+    TextInput:
+        multiline: False
+
+    PersonSelectionWidget:
+    
+
+<PersonSelectionWidget>:
+    rows: 1
+
+    Button:
+        text: "Pressme"
