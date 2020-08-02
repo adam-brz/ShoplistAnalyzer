@@ -20,7 +20,7 @@ class ShoppingListGenerator:
         self.persons = [Person(name) for name in person_names]
 
     def generateFromImage(self, image_file):
-        converter = OCRConverter(image_file)
+        converter = OCRConverter()
         data = converter.parseImageFile(image_file)
         return self.generateFromString(data)
 

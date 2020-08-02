@@ -9,6 +9,7 @@
         multiline: False
         pos_hint: {"x": 0, "top": 0.95}
         size_hint: 0.8, 0.05
+        text_size: self.size
 
     Button:
         text: "Browse file"
@@ -22,6 +23,7 @@
         size_hint: 1, 0.1
     
     ProductListWidget:
+        id: productList
         pos_hint: {"x": 0, "top": 0.8}
         size_hint: 1, 0.7
 
@@ -61,6 +63,8 @@
         text: "Results"
 
 <ProductListWidget>:
+    layout: layout 
+
     ScrollView:
         pos_hint: {"x": 0, "top": 1}
         size_hint: 1, None
@@ -70,6 +74,7 @@
         do_scroll_y: True
 
         GridLayout:
+            id: layout 
             cols: 1
             size_hint_y: None
             row_default_height: root.height * 0.1
@@ -87,26 +92,39 @@
                 Label:
                     text: "Persons"
 
-            ProductEntryWidget:
-            ProductEntryWidget:
-            ProductEntryWidget:
-            ProductEntryWidget:
-            ProductEntryWidget:
-
 <ProductEntryWidget>:
     cols: 3
 
     Label:
+        id: product_name
         text: "Product"
 
     TextInput:
+        id: product_price
         multiline: False
 
     PersonSelectionWidget:
+        id: selection_widget
     
 
 <PersonSelectionWidget>:
     rows: 1
 
-    Button:
-        text: "Pressme"
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
