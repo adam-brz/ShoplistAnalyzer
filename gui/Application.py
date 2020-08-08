@@ -9,10 +9,19 @@ from kivy.uix.widget import Widget
 from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty
 from kivy.uix.button import Button
+from kivy.uix.togglebutton import ToggleButton
+from kivy.uix.label import Label
+from kivy.uix.progressbar import ProgressBar
+from kivy.lang.builder import Builder
+from kivy.metrics import dp
+from kivy.properties import NumericProperty
 
 import os
 from ShoppingListGenerator import ShoppingListGenerator
 from Options import Options
+
+from Product import Product
+from Person import Person
 
 class LoadDialog(FloatLayout):
     load = ObjectProperty(None)
@@ -59,8 +68,8 @@ class AppLayout(FloatLayout):
         self.ids.productList.clear()
 
     def optionsCallback(self, event):
-        pass
-
+        self.ids.productList.addProduct(Product("Fasola", 2.30), [Person("A"), Person("B")])
+        
     def resultsCallback(self, event):
         pass
 
@@ -96,6 +105,27 @@ class ProductListWidget(FloatLayout):
 
         self.entry_widgets = []
 
+    def getTotalSum(self):
+        return sum(shop_list.getTotalSum() for shop_list in self.shoppingLists)
+
+    def getRealSum(self):
+        return sum(shop_list.realSum for shop_list in self.shoppingLists)
+
+    def getBill(self):
+        sum = {}
+        for shop_list in self.shoppingLists:
+            sum = self.__sumDicts(sum, shop_list.generateBill())
+
+        return sum
+
+    def __sumDicts(self, a, b):
+        for key in b.keys():
+            if key in a.keys():
+                a[key] += b[key]
+            else:
+                a[key] = b[key]
+        return a
+
 class ProductEntryWidget(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -128,9 +158,22 @@ class PersonSelectionWidget(GridLayout):
         self.personButtons = []
 
         for person in persons:
-            button = Button(text = person.name)
-            self.add_widget(button)
-            self.personButtons.append(button)
+            selector = PersonSelector(person.name)
+            selector.setPercentage(round(100/len(persons), 0))
+
+            self.add_widget(selector)
+            self.personButtons.append(selector)
+
+class PersonSelector(FloatLayout):
+    def __init__(self, name, **kwargs):
+        super().__init__(**kwargs)
+        self.ids.selectorText.text = name
+
+    def setPercentage(self, percentage):
+        self.ids.progress.value = percentage
+
+class PercentageProgress(FloatLayout):
+    value = NumericProperty()
 
 class Application(App):
     def build(self):

@@ -28,7 +28,7 @@
         size_hint: 1, 0.7
 
     Label:
-        text: "Total sum:"
+        text: "Total sum: {0:.2f}".format(root.ids.productList.getTotalSum())
         pos_hint: {"x": 0, "top": 0.1}
         size_hint: 1, 0.05
 
@@ -128,3 +128,42 @@
             Button:
                 text: "Load"
                 on_release: root.load(filechooser.path, filechooser.selection)
+
+<PersonSelector>:
+    Button:
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, 1
+
+    Label:
+        id: selectorText
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, 0.5
+
+    PercentageProgress:
+        id: progress
+        pos_hint: {"x": 0, "top": 0.5}
+        size_hint: 1, 0.5
+
+<PercentageProgress>:
+    max: 100
+    value: 0
+ 
+    canvas:
+        Color:
+            rgba: 0.2, 0.2, 0.2, 1 
+
+        Rectangle:
+            pos: self.x + dp(5), self.y + dp(5)
+            size: self.width - dp(10), self.height - dp(10)
+
+        Color:
+            rgba: 0.8, 0.1, 0.5, 1
+
+        Rectangle:
+            pos: self.x + dp(5), self.y + dp(5)
+            size: self.width * (self.value / float(self.max)) if self.max else dp(5), self.height - dp(10)
+    
+    Label:
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, 1
+        text: "{0:.0f}%".format(root.value)
