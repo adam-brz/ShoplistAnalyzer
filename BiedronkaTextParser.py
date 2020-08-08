@@ -28,7 +28,7 @@ class BiedronkaTextParser(object):
         result = re.search(r"PLN +\d+, ?\d\d", self.data)
 
         if result is None:
-            raise ParseException
+            return 0
 
         totalSum = self.data[result.start() + len("PLN ") : result.end()]
         totalSum = totalSum.replace(",", ".").strip()
