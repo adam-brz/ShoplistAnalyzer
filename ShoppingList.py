@@ -20,6 +20,9 @@ class ShoppingList:
     def removePerson(self, person):
         self.persons.remove(person)
 
+    def getTotalSum(self):
+        return sum(person.getBill() for person in self.persons)
+
     def generateBill(self):
         self.bill = {}
 
