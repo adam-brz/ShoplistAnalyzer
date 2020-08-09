@@ -56,7 +56,7 @@ class AppLayout(FloatLayout):
         
     def resultsCallback(self, event):
         content = ResultsWidget(cancel = self.dismiss_popup)
-        content.text = "\n".join("{0} = {1}".format(person, sum) for person,sum in self.ids.productList.getBill().items())
+        content.text = "\n".join("{0} = {1:.2f}".format(person, sum) for person,sum in self.ids.productList.getBill().items())
 
         self._popup = Popup(title = "Results", content = content,
                             size_hint = (0.9, 0.9))
