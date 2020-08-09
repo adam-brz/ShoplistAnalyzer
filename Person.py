@@ -12,7 +12,7 @@ class Person:
         self.bought_products[product] = count
 
     def getProductCount(self, product):
-        return self.bought_products[product] = count
+        return self.bought_products[product]
 
     def removeProduct(self, product):
         if product in self.bought_products:
