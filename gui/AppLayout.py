@@ -98,6 +98,7 @@ class AppLayout(FloatLayout):
 
     def clearCallback(self, event):
         self.ids.productList.clear()
+        self.updateTotalCosts()
 
     def optionsCallback(self, event):
         content = OptionsPopup(self.options, cancel = self.dismiss_popup)
