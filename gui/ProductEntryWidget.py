@@ -4,9 +4,6 @@ from PersonSelectionWidget import PersonSelectionWidget
 
 Builder.load_file("kv/product_entry.kv")
 
-def on_text(instance, value):
-    print('The widget', instance, 'have:', value)
-
 class ProductEntryWidget(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
