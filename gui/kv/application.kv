@@ -1,0 +1,45 @@
+<AppLayout>:
+    Label:
+        text: "Bill Analyzer"
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, 0.05
+
+    TextInput:
+        id: file_input
+        multiline: False
+        pos_hint: {"x": 0, "top": 0.95}
+        size_hint: 0.8, 0.05
+        text_size: self.size
+
+    Button:
+        text: "Browse file"
+        pos_hint: {"x": 0.8, "top": 0.95}
+        size_hint: 0.2, 0.05
+        on_release: root.selectFile()
+
+    ActionButtonsWidget:
+        id: actionButtons
+        pos_hint: {"x": 0, "top": 0.9}
+        size_hint: 1, 0.1
+    
+    ProductListWidget:
+        id: productList
+        pos_hint: {"x": 0, "top": 0.8}
+        size_hint: 1, 0.7
+
+    Label:
+        text: "Total sum: {0:.2f}".format(0)
+        pos_hint: {"x": 0, "top": 0.1}
+        size_hint: 1, 0.05
+
+    Label:
+        text: "Expected sum:"
+        pos_hint: {"x": 0, "top": 0.05}
+        size_hint: 1, 0.05
+
+
+
+
+    
+
+

@@ -1,0 +1,29 @@
+<ProductListWidget>:
+    layout: layout 
+
+    ScrollView:
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, None
+        size: root.width, root.height
+
+        do_scroll_x: False
+        do_scroll_y: True
+
+        GridLayout:
+            id: layout 
+            cols: 1
+            size_hint_y: None
+            row_default_height: root.height * 0.1
+            height: self.minimum_height
+
+            GridLayout:
+                cols: 3
+
+                Label:
+                    text: "Product Name"
+
+                Label:
+                    text: "Product Price"
+
+                Label:
+                    text: "Persons"
