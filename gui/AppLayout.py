@@ -1,24 +1,20 @@
-from ShoppingListGenerator import ShoppingListGenerator
-from Options import Options
-
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 
-from LoadDialog import LoadDialog
-from ActionButtonsWidget import ActionButtonsWidget
-from LoadDialog import LoadDialog
-
 from ProductListWidget import ProductListWidget
+from ActionButtonsWidget import ActionButtonsWidget
+from ResultsWidget import ResultsWidget
+from LoadDialog import LoadDialog
 
+from ShoppingListGenerator import ShoppingListGenerator
+from Options import Options
 import os
-
-from Product import Product
-from Person import Person
 
 class AppLayout(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        self._popup = None
         self.options = Options()
 
         buttons = self.ids.actionButtons.ids
@@ -27,13 +23,13 @@ class AppLayout(FloatLayout):
         buttons.button_options.bind(on_release = self.optionsCallback)
         buttons.button_results.bind(on_release = self.resultsCallback)
 
-    def selectFile(self):
-        content = LoadDialog(load=self.getFilename, cancel=self.dismiss_popup)
-        self._popup = Popup(title="Load file", content=content,
-                            size_hint=(0.9, 0.9))
+    def loadFilePopup(self):
+        content = LoadDialog(load = self.__getFilename, cancel = self.dismiss_popup)
+        self._popup = Popup(title = "Load file", content = content,
+                            size_hint = (0.9, 0.9))
         self._popup.open()
 
-    def getFilename(self, path, filename):
+    def __getFilename(self, path, filename):
         self.ids.file_input.text = os.path.join(path, filename[0])
         self.dismiss_popup()
 
@@ -41,14 +37,14 @@ class AppLayout(FloatLayout):
         self._popup.dismiss()
 
     def parseFileCallback(self, event):
-        imageFile = self.ids.file_input.text.strip()
+        filename = self.ids.file_input.text.strip()
 
-        if not imageFile:
+        if not filename:
             return
 
         person_names = self.options.getPersons()
         generator = ShoppingListGenerator(person_names)
-        shoppingList = generator.generateFromImage(imageFile)
+        shoppingList = generator.generateFromImage(filename)
     
         self.ids.productList.addShoppingList(shoppingList)
 
@@ -56,7 +52,12 @@ class AppLayout(FloatLayout):
         self.ids.productList.clear()
 
     def optionsCallback(self, event):
-        self.ids.productList.addProduct(Product("Fasola", 2.30), [Person("A"), Person("B")])
+        pass
         
     def resultsCallback(self, event):
-        pass
+        content = ResultsWidget(cancel = self.dismiss_popup)
+        content.text = "\n".join("{0} = {1}".format(person, sum) for person,sum in self.ids.productList.getBill().items())
+
+        self._popup = Popup(title = "Results", content = content,
+                            size_hint = (0.9, 0.9))
+        self._popup.open()

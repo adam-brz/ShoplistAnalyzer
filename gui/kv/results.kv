@@ -1,0 +1,19 @@
+#:import Clipboard kivy.core.clipboard.Clipboard
+
+<ResultsWidget>:
+    Label:
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, 0.8
+        text: root.text
+
+    Button:
+        text: "Copy to clipboard"
+        pos_hint: {"x": 0, "top": 0.2}
+        size_hint: 0.5, 0.2
+        on_release: Clipboard.copy(root.text)
+
+    Button:
+        text: "ok"
+        pos_hint: {"x": 0.5, "top": 0.2}
+        size_hint: 0.5, 0.2
+        on_release: root.cancel()
