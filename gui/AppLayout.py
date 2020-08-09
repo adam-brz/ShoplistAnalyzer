@@ -48,7 +48,16 @@ class AppLayout(FloatLayout):
         shoppingList = generator.generateFromImage(filename)
     
         self.ids.productList.addShoppingList(shoppingList)
+        self.ids.productList.attachObserver(self)
+        self.updateTotalCosts()
 
+    def update(self, instance, value):
+        self.updateTotalCosts()
+
+    def updateTotalCosts(self):
+        self.ids.totalSumLabel.text = "Total sum: {0:.2f}".format(self.ids.productList.getTotalSum())
+        self.ids.realSumLabel.text = "Expected sum: {0:.2f}".format(self.ids.productList.getRealSum())
+        
     def clearCallback(self, event):
         self.ids.productList.clear()
 

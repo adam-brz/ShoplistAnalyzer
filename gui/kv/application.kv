@@ -28,12 +28,14 @@
         size_hint: 1, 0.7
 
     Label:
+        id: totalSumLabel
         text: "Total sum: {0:.2f}".format(0)
         pos_hint: {"x": 0, "top": 0.1}
         size_hint: 1, 0.05
 
     Label:
-        text: "Expected sum:"
+        id: realSumLabel
+        text: "Expected sum: {0:.2f}".format(0)
         pos_hint: {"x": 0, "top": 0.05}
         size_hint: 1, 0.05
 

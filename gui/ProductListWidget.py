@@ -13,6 +13,14 @@ class ProductListWidget(FloatLayout):
         self.entry_widgets = []
         self.shoppingLists = []
 
+    def attachObserver(self, observer):
+        for entry in self.entry_widgets:
+            entry.attachObserver(observer)
+
+    def removeObserver(self, observer):
+        for entry in self.entry_widgets:
+            entry.removeObserver(observer)
+
     def addShoppingList(self, shoppingList):
         self.shoppingLists.append(shoppingList)
 
