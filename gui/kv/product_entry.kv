@@ -9,5 +9,7 @@
         id: product_price
         multiline: False
 
+        foreground_color: (1, 0, 0, 1) if self.text == "0.00" else (0, 0, 0, 1)
+
     PersonSelectionWidget:
         id: selection_widget

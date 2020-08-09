@@ -13,6 +13,8 @@ class ProductListWidget(FloatLayout):
         self.entry_widgets = []
         self.shoppingLists = []
 
+        self.expectedSum = 0
+
     def attachObserver(self, observer):
         for entry in self.entry_widgets:
             entry.attachObserver(observer)
@@ -26,6 +28,8 @@ class ProductListWidget(FloatLayout):
 
         for product in shoppingList.getProducts():
             self.addProduct(product, shoppingList.persons)
+
+        self.expectedSum += shoppingList.realSum
 
     def addProduct(self, product, owners):
         new_entry = ProductEntryWidget()
@@ -46,7 +50,7 @@ class ProductListWidget(FloatLayout):
         return sum(shop_list.getTotalSum() for shop_list in self.shoppingLists)
 
     def getRealSum(self):
-        return sum(shop_list.realSum for shop_list in self.shoppingLists)
+        return self.expectedSum
 
     def getBill(self):
         sum = {}
