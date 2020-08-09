@@ -39,6 +39,8 @@ class ProductEntryWidget(GridLayout):
 
     def setProduct(self, product):
         self.product = product
+        self.selectionWidget.setProduct(product)
+        
         self.setName(product.name)
         self.setPrice(product.price)
 

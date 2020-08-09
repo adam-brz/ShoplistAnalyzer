@@ -2,9 +2,10 @@
     Button:
         pos_hint: {"x": 0, "top": 1}
         size_hint: 1, 1
+        on_release: root.notify()
 
     Label:
-        id: selectorText
+        id: nameLabel
         pos_hint: {"x": 0, "top": 1}
         size_hint: 1, 0.5
 
