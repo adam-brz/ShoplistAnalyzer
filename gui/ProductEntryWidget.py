@@ -16,7 +16,7 @@ class ProductEntryWidget(GridLayout):
 
         self.attachObserver(self)
         self.ids.product_price.bind(text = self.notify)
-        self.ids.product_price.bind(on_text_validate = self.validateText)
+        self.ids.product_price.bind(focus = self.validateText)
         
     def attachObserver(self, observer):
         self.observers.append(observer)
@@ -33,8 +33,8 @@ class ProductEntryWidget(GridLayout):
         self.product.price = value
 
     def validateText(self, instance, value):
-        self.update(instance, value)
-        self.setPrice(self.product.price)
+        if not value:
+            self.setPrice(self.product.price)
 
     def notify(self, instance, value):
         for observer in self.observers:
@@ -49,7 +49,7 @@ class ProductEntryWidget(GridLayout):
         self.ids.product_name.text = name
 
     def setPrice(self, price):
-        self.ids.product_price.text = str(price)
+        self.ids.product_price.text = "{0:.2f}".format(price)
 
     def setOwners(self, owners):
         self.selectionWidget.setPersons(owners)
