@@ -3,7 +3,7 @@ from kivy.uix.popup import Popup
 
 from ProductListWidget import ProductListWidget
 from ActionButtonsWidget import ActionButtonsWidget
-from ResultsWidget import ResultsWidget
+from ResultsPopup import ResultsPopup
 from LoadDialog import LoadDialog
 
 from ShoppingListGenerator import ShoppingListGenerator
@@ -55,8 +55,12 @@ class AppLayout(FloatLayout):
         pass
         
     def resultsCallback(self, event):
-        content = ResultsWidget(cancel = self.dismiss_popup)
-        content.text = "\n".join("{0} = {1:.2f}".format(person, sum) for person,sum in self.ids.productList.getBill().items())
+        content = ResultsPopup(cancel = self.dismiss_popup)
+        content.text = "\n".join("{0} = {1:.2f}".format(person, sum) for person,sum
+                                     in self.ids.productList.getBill().items())
+
+        if not content.text:
+            content.text = "No Results"
 
         self._popup = Popup(title = "Results", content = content,
                             size_hint = (0.9, 0.9))
