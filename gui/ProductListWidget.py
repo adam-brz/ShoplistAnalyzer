@@ -41,6 +41,8 @@ class ProductListWidget(FloatLayout):
   
     def clear(self):
         self.shoppingLists = []
+        self.expectedSum = 0
+        
         for widget in self.entry_widgets:
             self.layout.remove_widget(widget)
 
