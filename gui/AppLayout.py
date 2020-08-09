@@ -40,8 +40,39 @@ class AppLayout(FloatLayout):
         self.ids.file_input.text = os.path.join(path, filename[0])
         self.dismiss_popup()
 
+    def notifyBadExpectedSum(self):
+        content = Label(text = "Cannot get real sum from image, you may want to change it manually")
+        self._popup = Popup(title = "Warning", content = content,
+                            size_hint = (0.9, 0.9))
+        self._popup.open()
+
+    def notifyParserError(self):
+        content = Label(text = "Cannot parse image, please make sure that your bill scan is readable")
+        self._popup = Popup(title = "Error", content = content,
+                            size_hint = (0.9, 0.9))
+        self._popup.open()
+
     def dismiss_popup(self):
         self._popup.dismiss()
+
+    def update(self, instance, value):
+        self.updateTotalCosts()
+
+    def updateTotalCosts(self):
+        self.ids.totalSumLabel.text = "Total sum: {0:.2f}".format(self.ids.productList.getTotalSum())
+        self.realSumInput.text = "{0:.2f}".format(self.ids.productList.getRealSum())
+        
+    def validateExpectedCosts(self, instance, value):
+        if value: return
+        value = instance.text
+
+        try:
+            value = float(value.replace(",", "."))
+        except ValueError:
+            value = 0
+
+        self.ids.productList.expectedSum = value
+        self.updateTotalCosts()
 
     def parseFileCallback(self, event):
         filename = self.ids.file_input.text.strip()
@@ -63,37 +94,6 @@ class AppLayout(FloatLayout):
     
         self.ids.productList.addShoppingList(shoppingList)
         self.ids.productList.attachObserver(self)
-        self.updateTotalCosts()
-
-    def notifyBadExpectedSum(self):
-        content = Label(text = "Cannot parse real sum from image, you may want to change it manually")
-        self._popup = Popup(title = "Warning", content = content,
-                            size_hint = (0.9, 0.9))
-        self._popup.open()
-
-    def notifyParserError(self):
-        content = Label(text = "Cannot parse image, please make sure that your bill scan is readable")
-        self._popup = Popup(title = "Error", content = content,
-                            size_hint = (0.9, 0.9))
-        self._popup.open()
-
-    def update(self, instance, value):
-        self.updateTotalCosts()
-
-    def updateTotalCosts(self):
-        self.ids.totalSumLabel.text = "Total sum: {0:.2f}".format(self.ids.productList.getTotalSum())
-        self.realSumInput.text = "{0:.2f}".format(self.ids.productList.getRealSum())
-        
-    def validateExpectedCosts(self, instance, value):
-        if value: return
-        value = instance.text
-
-        try:
-            value = float(value.replace(",", "."))
-        except ValueError:
-            value = 0
-
-        self.ids.productList.expectedSum = value
         self.updateTotalCosts()
 
     def clearCallback(self, event):

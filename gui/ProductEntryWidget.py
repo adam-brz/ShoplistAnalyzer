@@ -10,7 +10,7 @@ def on_text(instance, value):
 class ProductEntryWidget(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.observers = []
+        self.observers = set()
         self.product = None
         self.selectionWidget = self.ids.selection_widget
 
@@ -19,7 +19,7 @@ class ProductEntryWidget(GridLayout):
         self.ids.product_price.bind(focus = self.validateText)
         
     def attachObserver(self, observer):
-        self.observers.append(observer)
+        self.observers.add(observer)
 
     def removeObserver(self, observer):
         self.observers.remove(observer)
