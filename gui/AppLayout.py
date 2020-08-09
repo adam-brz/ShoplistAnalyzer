@@ -4,6 +4,7 @@ from kivy.uix.popup import Popup
 from ProductListWidget import ProductListWidget
 from ActionButtonsWidget import ActionButtonsWidget
 from ResultsPopup import ResultsPopup
+from OptionsPopup import OptionsPopup
 from LoadDialog import LoadDialog
 
 from ShoppingListGenerator import ShoppingListGenerator
@@ -52,7 +53,10 @@ class AppLayout(FloatLayout):
         self.ids.productList.clear()
 
     def optionsCallback(self, event):
-        pass
+        content = OptionsPopup(self.options, cancel = self.dismiss_popup)
+        self._popup = Popup(title = "Options", content = content,
+                            size_hint = (0.9, 0.9))
+        self._popup.open()
         
     def resultsCallback(self, event):
         content = ResultsPopup(cancel = self.dismiss_popup)
