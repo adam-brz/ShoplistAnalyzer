@@ -11,6 +11,9 @@ class Person:
     def setProductCount(self, product, count = 1):
         self.bought_products[product] = count
 
+    def getProductCount(self, product):
+        return self.bought_products[product] = count
+
     def removeProduct(self, product):
         if product in self.bought_products:
             self.bought_products.pop(product)
