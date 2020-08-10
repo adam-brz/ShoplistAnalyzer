@@ -3,11 +3,13 @@
 
     Label:
         id: product_name
-        text: "Product"
+        font_size: min(self.height/3, self.width/8)
 
     TextInput:
         id: product_price
         multiline: False
+        font_size: min(self.height/2, self.width/8)
+        text_size: self.size
 
         foreground_color: (1, 0, 0, 1) if self.text == "0.00" else (0, 0, 0, 1)
 

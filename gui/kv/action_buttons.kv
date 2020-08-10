@@ -1,24 +1,31 @@
 <ActionButtonsWidget>:
     Button:
         id: button_generate
+        text: "Generate"
         pos_hint: {"x": 0, "top": 1}
         size_hint: 0.25, 1
-        text: "Generate"
+        font_size: min(self.height/2, self.width/5)
 
     Button:
         id: button_clear
+        text: "Clear list"
         pos_hint: {"x": 0.25, "top": 1}
         size_hint: 0.25, 1
-        text: "Clear list"
+        font_size: min(self.height/2, self.width/5)
+        
 
     Button:
         id: button_options
+        text: "Options"
         pos_hint: {"x": 0.5, "top": 1}
         size_hint: 0.25, 1
-        text: "Options"
+        font_size: min(self.height/2, self.width/5)
+        
 
     Button:
         id: button_results
+        text: "Results"
         pos_hint: {"x": 0.75, "top": 1}
         size_hint: 0.25, 1
-        text: "Results"
+        font_size: min(self.height/2, self.width/5)
+        

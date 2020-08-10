@@ -2,9 +2,10 @@
     realSumInput: realSumInput
 
     Label:
-        text: "Bill Analyzer"
+        text: "Shoplist Analyzer"
         pos_hint: {"x": 0, "top": 1}
         size_hint: 1, 0.05
+        font_size: min(self.height/2, self.width/5)
 
     TextInput:
         id: file_input
@@ -12,11 +13,13 @@
         pos_hint: {"x": 0, "top": 0.95}
         size_hint: 0.8, 0.05
         text_size: self.size
+        font_size: min(self.height/2, self.width/5)
 
     Button:
         text: "Browse file"
         pos_hint: {"x": 0.8, "top": 0.95}
         size_hint: 0.2, 0.05
+        font_size: min(self.height/2, self.width/5)
         on_release: root.loadFilePopup()
 
     ActionButtonsWidget:
@@ -34,6 +37,7 @@
         text: "Total sum: {0:.2f}".format(0)
         pos_hint: {"x": 0, "top": 0.1}
         size_hint: 1, 0.05
+        font_size: min(self.height/2, self.width/5)
 
     GridLayout:
         cols: 2
@@ -42,11 +46,13 @@
 
         Label:
             text: "Expected sum: "
+            font_size: min(self.height/2, self.width/5)
             
         TextInput:
             id: realSumInput
             multiline: False
             text_size: self.size
+            font_size: min(self.height/2, self.width/5)
             text: "0.00"
             
 

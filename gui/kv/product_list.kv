@@ -1,3 +1,17 @@
+<DynamicSizeLabel@Label>:
+    font_size: min(self.height/2, self.width/8)
+
+<Separator@Widget>:
+    size_hint_y: None
+    height: dp(12)
+
+    canvas:
+        Color:
+            rgb: 0.3, 0.3, 0.3
+        Rectangle:
+            pos: self.x, self.center_y
+            size: self.width, dp(2)
+
 <ProductListWidget>:
     layout: layout 
 
@@ -19,11 +33,15 @@
             GridLayout:
                 cols: 3
 
-                Label:
+                DynamicSizeLabel:
                     text: "Product Name"
 
-                Label:
+                DynamicSizeLabel:
                     text: "Product Price"
 
-                Label:
+                DynamicSizeLabel:
                     text: "Owners"
+
+                Separator:
+                Separator:
+                Separator:
