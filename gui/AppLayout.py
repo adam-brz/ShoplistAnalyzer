@@ -95,13 +95,17 @@ class AppLayout(FloatLayout):
         self._popup.open()
 
     def notifyParserError(self):
-        content = Label(text = "Cannot parse image, please make sure that your bill scan is readable")
+        content = Label(text = "Cannot parse image, "
+                               "please make sure that "
+                               "your bill scan is readable")
+
         self._popup = Popup(title = "Error", content = content,
                             size_hint = (0.9, 0.9))
         self._popup.open()
    
     def notifyBadExpectedSum(self):
         content = Label(text = "Cannot get real sum from image, you may want to change it manually")
+
         self._popup = Popup(title = "Warning", content = content,
                             size_hint = (0.9, 0.9))
         self._popup.open()
