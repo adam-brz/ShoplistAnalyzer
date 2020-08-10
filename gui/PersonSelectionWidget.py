@@ -3,7 +3,7 @@ from kivy.uix.popup import Popup
 from kivy.clock import Clock
 
 from PersonSelectorWidget import PersonSelectorWidget
-from OwnerPercentageSelector import OwnerPercentageSelector
+from OwnersPercentageSelector import OwnersPercentageSelector
 
 LONG_PRESS_TIME = 1
 
@@ -12,9 +12,9 @@ class PersonSelectionWidget(GridLayout):
         super().__init__(**kwargs)
         self.personSelectors = []
         self.persons = []
+        self.product = None
 
         self._clock = None
-        self.product = None
         self.rows = 1
 
     def on_touch_down(self, touch):
@@ -24,14 +24,14 @@ class PersonSelectionWidget(GridLayout):
         return super().on_touch_down(touch)
 
     def on_touch_up(self, touch):
-        if self.collide_point(touch.pos[0], touch.pos[1]) and self._clock:
+        if self._clock:
             self._clock.cancel()
             self._clock = None
 
         return super().on_touch_up(touch)
 
     def askProductOwners(self, dt):
-        content = OwnerPercentageSelector(self.persons, self.product,
+        content = OwnersPercentageSelector(self.persons, self.product,
                                           ok = self.setProductOwners,
                                           cancel = self.dismiss_popup)
 

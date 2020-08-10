@@ -1,0 +1,16 @@
+<PercentageSelector>:
+    slider: slider
+    cols: 3
+
+    Label:
+        id: labelName
+
+    Slider:
+        id: slider
+        min: 0
+        max: 100
+        step: 1
+        orientation: 'horizontal'
+
+    Label:
+        text: "{0:.0f}%".format(slider.value)

@@ -2,8 +2,8 @@
 
 import kivy
 from kivy.app import App
-from AppLayout import AppLayout
 from kivy.lang import Builder
+from AppLayout import AppLayout
 
 Builder.load_file("kv/application.kv")
 
