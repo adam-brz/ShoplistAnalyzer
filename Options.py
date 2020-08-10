@@ -28,10 +28,10 @@ class Options(object):
         self.persons = persons
 
     def save(self):
-        try:
-            self.parser["PersonList"]["names"] = self.getPersonsString()
-        except KeyError:
-            return
-        
+        if not self.parser.has_section("PersonList"):
+            self.parser.add_section("PersonList")
+
+        self.parser["PersonList"]["names"] = self.getPersonsString()
+
         with open(CONFIG_PATH, "w") as file:
             self.parser.write(file)
