@@ -2,17 +2,14 @@ from kivy.uix.floatlayout import FloatLayout
 from PercentageProgress import PercentageProgress
 from kivy.lang import Builder
 
-Builder.load_file("kv/person_selector.kv")
+Builder.load_file("kv/percentage_button.kv")
 
-class PersonSelectorWidget(FloatLayout):
-    def __init__(self, person, product, **kwargs):
+class PercentageButton(FloatLayout):
+    def __init__(self, text, **kwargs):
         super().__init__(**kwargs)
 
-        self.person = person
-        self.product = product
         self.observers = set()
-
-        self.ids.nameLabel.text = person.name
+        self.ids.nameLabel.text = text
 
     def attachObserver(self, observer):
         self.observers.add(observer)
@@ -22,8 +19,7 @@ class PersonSelectorWidget(FloatLayout):
 
     def notify(self):
         for observer in self.observers:
-            observer.update(self, self.person)
+            observer.update(self)
 
-    def updatePercentage(self):
-        percentage = self.person.getProductCount(self.product) * 100
+    def setPercentage(self, percentage):
         self.ids.progress.value = round(percentage, 0)

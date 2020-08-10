@@ -21,6 +21,10 @@ class ProductEntryWidget(GridLayout):
     def removeObserver(self, observer):
         self.observers.remove(observer)
 
+    def notify(self, instance, value):
+        for observer in self.observers:
+            observer.update(instance, value)
+
     def update(self, instance, value):
         try:
             value = float(value.replace(",", "."))
@@ -32,10 +36,6 @@ class ProductEntryWidget(GridLayout):
     def validateText(self, instance, value):
         if not value:
             self.setPrice(self.product.price)
-
-    def notify(self, instance, value):
-        for observer in self.observers:
-            observer.update(instance, value)
 
     def setProduct(self, product):
         self.product = product

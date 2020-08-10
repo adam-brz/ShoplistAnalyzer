@@ -27,11 +27,11 @@ class ProductListWidget(FloatLayout):
         self.shoppingLists.append(shoppingList)
 
         for product in shoppingList.getProducts():
-            self.addProduct(product, shoppingList.persons)
+            self.__addProduct(product, shoppingList.persons)
 
         self.expectedSum += shoppingList.realSum
 
-    def addProduct(self, product, owners):
+    def __addProduct(self, product, owners):
         new_entry = ProductEntryWidget()
         new_entry.setProduct(product)
         new_entry.setOwners(owners)
