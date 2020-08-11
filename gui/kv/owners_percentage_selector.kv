@@ -19,12 +19,14 @@
         text: "Ok"
         pos_hint: {"x": 0, "top": 0.2}
         size_hint: 0.5, 0.2
+        font_size: min(self.height/3, self.width/8)
         on_release: root.okayPressed()
 
     Button:
         text: "Cancel"
         pos_hint: {"x": 0.5, "top": 0.2}
         size_hint: 0.5, 0.2
+        font_size: min(self.height/3, self.width/8)
         on_release: root.cancel()
 
 

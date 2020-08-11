@@ -4,6 +4,7 @@
 
     Label:
         id: labelName
+        font_size: min(self.height/2, self.width/2)
 
     Slider:
         id: slider
@@ -14,3 +15,4 @@
 
     Label:
         text: "{0:.0f}%".format(slider.value)
+        font_size: min(self.height/2, self.width/4)

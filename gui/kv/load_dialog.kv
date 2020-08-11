@@ -1,18 +1,23 @@
 <LoadDialog>:
-    BoxLayout:
+    FloatLayout:
         size: root.size
         pos: root.pos
-        orientation: "vertical"
+
         FileChooserIconView:
             id: filechooser
+            pos_hint: {"x": 0, "top": 1}
+            size_hint: 1, 0.9
 
-        BoxLayout:
-            size_hint_y: None
-            height: 30
-            Button:
-                text: "Cancel"
-                on_release: root.cancel()
+        Button:
+            pos_hint: {"x": 0, "top": 0.1}
+            size_hint: 0.5, 0.1
+            font_size: min(self.height/3, self.width/8)
+            text: "Cancel"
+            on_release: root.cancel()
 
-            Button:
-                text: "Load"
-                on_release: root.load(filechooser.path, filechooser.selection)
+        Button:
+            pos_hint: {"x": 0.5, "top": 0.1}
+            size_hint: 0.5, 0.1
+            font_size: min(self.height/3, self.width/8)
+            text: "Load"
+            on_release: root.load(filechooser.path, filechooser.selection)
