@@ -1,8 +1,9 @@
 from kivy.uix.floatlayout import FloatLayout
-from PercentageProgress import PercentageProgress
 from kivy.lang import Builder
+from gui.PercentageProgress import PercentageProgress
+import os
 
-Builder.load_file("kv/percentage_button.kv")
+Builder.load_file(os.path.join(os.path.dirname(__file__), "kv/percentage_button.kv"))
 
 class PercentageButton(FloatLayout):
     def __init__(self, text, **kwargs):

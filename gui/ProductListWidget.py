@@ -1,9 +1,10 @@
 from kivy.properties import ObjectProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.lang import Builder
-from ProductEntryWidget import ProductEntryWidget
+from gui.ProductEntryWidget import ProductEntryWidget
+import os
 
-Builder.load_file("kv/product_list.kv")
+Builder.load_file(os.path.join(os.path.dirname(__file__), "kv/product_list.kv"))
 
 class ProductListWidget(FloatLayout):
     layout = ObjectProperty(None)

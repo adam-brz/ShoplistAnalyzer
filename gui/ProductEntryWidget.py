@@ -1,8 +1,9 @@
 from kivy.uix.gridlayout import GridLayout
 from kivy.lang import Builder
-from PersonSelectionWidget import PersonSelectionWidget
+from gui.PersonSelectionWidget import PersonSelectionWidget
+import os
 
-Builder.load_file("kv/product_entry.kv")
+Builder.load_file(os.path.join(os.path.dirname(__file__), "kv/product_entry.kv"))
 
 class ProductEntryWidget(GridLayout):
     def __init__(self, **kwargs):

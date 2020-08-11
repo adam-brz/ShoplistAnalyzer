@@ -2,8 +2,8 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.popup import Popup
 from kivy.clock import Clock
 
-from PercentageButton import PercentageButton
-from OwnersPercentageSelector import OwnersPercentageSelector
+from gui.PercentageButton import PercentageButton
+from gui.OwnersPercentageSelector import OwnersPercentageSelector
 
 LONG_PRESS_TIME = 1
 

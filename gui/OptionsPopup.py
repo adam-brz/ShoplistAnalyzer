@@ -1,8 +1,9 @@
 from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import ObjectProperty
 from kivy.lang import Builder
+import os
 
-Builder.load_file("kv/options_popup.kv")
+Builder.load_file(os.path.join(os.path.dirname(__file__), "kv/options_popup.kv"))
 
 class OptionsPopup(FloatLayout):
     cancel = ObjectProperty(None)

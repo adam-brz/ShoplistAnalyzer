@@ -2,9 +2,10 @@ from kivy.properties import ObjectProperty, NumericProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.lang import Builder
-from PercentageSelector import PercentageSelector
+from gui.PercentageSelector import PercentageSelector
+import os
 
-Builder.load_file("kv/owners_percentage_selector.kv")
+Builder.load_file(os.path.join(os.path.dirname(__file__), "kv/owners_percentage_selector.kv"))
 
 class OwnersPercentageSelector(FloatLayout):
     ok = ObjectProperty(None)

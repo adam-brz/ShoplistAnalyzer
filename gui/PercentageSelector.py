@@ -1,8 +1,9 @@
 from kivy.properties import ObjectProperty
 from kivy.uix.gridlayout import GridLayout
 from kivy.lang import Builder
+import os
 
-Builder.load_file("kv/percentage_selector.kv")
+Builder.load_file(os.path.join(os.path.dirname(__file__), "kv/percentage_selector.kv"))
 
 class PercentageSelector(GridLayout):
     slider = ObjectProperty(None)

@@ -3,14 +3,17 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty
 
-from ProductListWidget import ProductListWidget
-from ActionButtonsWidget import ActionButtonsWidget
-from ResultsPopup import ResultsPopup
-from OptionsPopup import OptionsPopup
-from LoadDialog import LoadDialog
+from gui.ProductListWidget import ProductListWidget
+from gui.ActionButtonsWidget import ActionButtonsWidget
+from gui.ResultsPopup import ResultsPopup
+from gui.OptionsPopup import OptionsPopup
+from gui.LoadDialog import LoadDialog
+from gui.MessageBox import MessageBox
 
 from ShoppingListGenerator import ShoppingListGenerator
 from Options import Options
+
+import TextFormatter
 import os
 
 class AppLayout(FloatLayout):
@@ -61,8 +64,8 @@ class AppLayout(FloatLayout):
 
         try:
             shoppingList = generator.generateFromImage(filename)
-        except:
-            self.notifyParserError()
+        except Exception as e:
+            self.notifyParserError(str(e))
             return
 
         if not shoppingList.realSum:
@@ -94,17 +97,22 @@ class AppLayout(FloatLayout):
                             size_hint = (0.9, 0.9))
         self._popup.open()
 
-    def notifyParserError(self):
-        content = Label(text = "Cannot parse image, "
-                               "please make sure that "
-                               "your bill scan is readable")
+    def notifyParserError(self, detailed_desc = ""):
+        desc = "Cannot parse image file, " \
+               "please make sure that " \
+               "your bill scan is readable - {0}".format(detailed_desc)
+                             
+        content = MessageBox(text = TextFormatter.breakByWords(desc, 24),
+                             ok = self.dismiss_popup) 
 
         self._popup = Popup(title = "Error", content = content,
                             size_hint = (0.9, 0.9))
         self._popup.open()
    
     def notifyBadExpectedSum(self):
-        content = Label(text = "Cannot get real sum from image, you may want to change it manually")
+        content = MessageBox(text = "Cannot get real sum from image,\n"
+                                    " you may want to change it manually",
+                             ok = self.dismiss_popup)
 
         self._popup = Popup(title = "Warning", content = content,
                             size_hint = (0.9, 0.9))
