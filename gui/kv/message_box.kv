@@ -1,0 +1,13 @@
+<MessageBox>:
+    Label:
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, 0.8
+        font_size: min(self.height/8, self.width/14)
+        text: root.text
+
+    Button:
+        text: "Ok"
+        pos_hint: {"x": 0, "top": 0.2}
+        size_hint: 1, 0.2
+        font_size: min(self.height/3, self.width/8)
+        on_release: root.ok()
