@@ -14,7 +14,7 @@ class OCRConverter(object):
         ocr_tools = pyocr.get_available_tools()
         
         if len(ocr_tools) == 0:
-            raise OCRConverterNotFoundException()
+            raise OCRConverterNotFoundException("Cannot Find OCR tool")
 
         self.ocr_tool = ocr_tools[0]
         
