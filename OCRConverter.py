@@ -12,7 +12,7 @@ class OCRConverter(object):
         self.lang = language
         ocr_tools = pyocr.get_available_tools()
         
-        if 1 or len(ocr_tools) == 0:
+        if len(ocr_tools) == 0:
             self.ocr_tool = SpaceOcr()
         else:
             self.ocr_tool = ocr_tools[0]
