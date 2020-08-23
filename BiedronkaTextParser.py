@@ -43,7 +43,7 @@ class BiedronkaTextParser(object):
         end = re.search(REGEX_END, self.data)
         
         if not end or not start:
-            print("Can't find START or END in: ", self.data)
+            return ""
 
         return self.data[start.end() : end.start()]
 
