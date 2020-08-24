@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,PIL, pytesseract, pyocr
+requirements = python3,kivy,PIL,pyocr,requests, urllib3, chardet, certifi, idna
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -236,7 +236,7 @@ android.arch = armeabi-v7a
 #p4a.source_dir =
 
 # (str) The directory in which python-for-android should look for your own build recipes (if any)
-#p4a.local_recipes =
+p4a.local_recipes = ./p4a_recipes
 
 # (str) Filename to the hook for p4a
 #p4a.hook =
