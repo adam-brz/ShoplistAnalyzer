@@ -6,8 +6,8 @@ from OwnerInfo import OwnerInfoFactory
 from Person import Person
 from Product import Product
 
-from OCRConverter import OCRConverter
-from BiedronkaTextParser import BiedronkaTextParser
+from ocr.OCRConverter import OCRConverter
+from ocr.BiedronkaTextParser import BiedronkaTextParser
 
 class ShoppingListGenerator:
     def __init__(self, person_names):
