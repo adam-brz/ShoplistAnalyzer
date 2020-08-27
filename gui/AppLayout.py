@@ -125,7 +125,8 @@ class AppLayout(FloatLayout):
         self._popup.open()
 
     def __getFilename(self, path, filename):
-        self.ids.file_input.text = os.path.join(path, filename[0])
+        if filename:
+            self.ids.file_input.text = os.path.join(path, filename[0])
         self.dismiss_popup()
 
     def dismiss_popup(self):
