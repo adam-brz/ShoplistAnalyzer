@@ -87,7 +87,7 @@ class AppLayout(FloatLayout):
         
     def resultsCallback(self, event):
         content = ResultsPopup(cancel = self.dismiss_popup)
-        content.text = "\n".join("{0} = {1:.2f}".format(person.name, sum) for person,sum
+        content.text = "\n".join("{0} = {1:.2f}".format(person, sum) for person,sum
                                      in self.ids.productList.getBill().items())
 
         if not content.text:

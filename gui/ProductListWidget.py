@@ -60,4 +60,13 @@ class ProductListWidget(FloatLayout):
         return self.expectedSum
 
     def getBill(self):
-        return self.shoppingList.generateBill()
+        bill = self.shoppingList.generateBill()
+        compactBill = {}
+
+        for person in bill:
+            if not person.name in compactBill:
+                compactBill[person.name] = bill[person]
+            else:
+                compactBill[person.name] += bill[person]
+
+        return compactBill
