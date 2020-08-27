@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 def formatMultiline(text, line_length):
     return "\n".join(text[i - line_length: i] for i 
                         in range(line_length,

@@ -18,6 +18,8 @@ class Product:
         return owners
 
     def getQuantityForOwner(self, owner):
+        if self.ownerGroup is None:
+            return 0
         return self.ownerGroup.getQuantityForOwner(owner)
 
     def setQuantityForOwner(self, owner, quantity):

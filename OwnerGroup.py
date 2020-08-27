@@ -7,7 +7,7 @@ class OwnerGroupFactry(FlyweightFactory):
         return FlyweightFactory.__new__(self, OwnerGroupFactry)
 
     def updateGroup(self, group, newInfo):
-        oldInfo = list(group)
+        oldInfo = list(group) if group else []
 
         for info in oldInfo:
             if info.getOwner() == newInfo.getOwner():

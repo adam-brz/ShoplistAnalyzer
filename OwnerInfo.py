@@ -7,13 +7,13 @@ class OwnerInfoFactory(FlyweightFactory):
         return FlyweightFactory.__new__(self, OwnerInfoFactory)
     
     def create(self, owner, quantity = 0):
-        for info in self.flyweights:
-            if info.getOwner() == owner and info.getQuantity() == quantity:
-                return info
-
         newInfo = OwnerInfo(owner, quantity)
-        self._addFlyweight(newInfo)
 
+        for info in self.flyweights:
+            if info == newInfo:
+                return info
+        
+        self._addFlyweight(newInfo)
         return newInfo
 
 class OwnerInfo:
