@@ -8,15 +8,15 @@
         text: root.text
 
     Button:
-        text: "Copy to clipboard"
+        text: "Ok"
         pos_hint: {"x": 0, "top": 0.2}
         size_hint: 0.5, 0.2
         font_size: min(self.height/3, self.width/8)
-        on_release: Clipboard.copy(root.text)
+        on_release: root.cancel()
 
     Button:
-        text: "Ok"
+        text: "Copy to clipboard"
         pos_hint: {"x": 0.5, "top": 0.2}
         size_hint: 0.5, 0.2
         font_size: min(self.height/3, self.width/8)
-        on_release: root.cancel()
+        on_release: Clipboard.copy(root.text)
