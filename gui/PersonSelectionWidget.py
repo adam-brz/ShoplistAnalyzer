@@ -27,14 +27,11 @@ class PersonSelectionWidget(GridLayout):
             self.remove_widget(selector)
 
         self.selectorPerson = {}
-        default_count = 1/len(persons)
-
+ 
         for person in persons:
-            person.setProductCount(self.product, default_count)
-
             selector = PercentageButton(person.name)
             selector.attachObserver(self)
-            selector.setPercentage(default_count * 100)
+            selector.setPercentage(self.getPersonPart(person) * 100)
 
             self.add_widget(selector)
             self.selectorPerson[selector] = person
@@ -47,17 +44,17 @@ class PersonSelectionWidget(GridLayout):
 
         if product_count and owner_count != 1:
             owner_count -= 1
-            person.setProductCount(self.product, 0)
+            self.product.setQuantityForOwner(person, 0)
         elif not product_count:
             owner_count += 1
-            person.setProductCount(self.product, 1 / owner_count)
+            self.product.setQuantityForOwner(person, 1 / owner_count)
 
         product_count = 1 / owner_count
 
         for selector in self.selectorPerson:
             owner = self.selectorPerson[selector]
             if self.getPersonPart(owner):
-                owner.setProductCount(self.product, product_count)
+                self.product.setQuantityForOwner(owner, product_count)
                 selector.setPercentage(product_count * 100)
             else:
                 selector.setPercentage(0)
@@ -72,7 +69,7 @@ class PersonSelectionWidget(GridLayout):
         return sum
 
     def getPersonPart(self, person):
-        return round(person.getProductCount(self.product), 3)
+        return round(self.product.getQuantityForOwner(person), 3)
 
     def on_touch_down(self, touch):
         if self.collide_point(touch.pos[0], touch.pos[1]) and not self._clock:
@@ -106,5 +103,5 @@ class PersonSelectionWidget(GridLayout):
     def updateSelectors(self):
         for selector in self.selectorPerson:
             person = self.selectorPerson[selector]
-            percentage = person.getProductCount(self.product) * 100
+            percentage = self.getPersonPart(person) * 100
             selector.setPercentage(percentage)

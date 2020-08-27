@@ -1,6 +1,7 @@
 from kivy.properties import ObjectProperty
 from kivy.uix.floatlayout import FloatLayout
 from kivy.lang import Builder
+
 from gui.ProductEntryWidget import ProductEntryWidget
 import os
 
@@ -12,7 +13,7 @@ class ProductListWidget(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.entry_widgets = []
-        self.shoppingLists = []
+        self.shoppingList = None
 
         self.expectedSum = 0
 
@@ -25,23 +26,26 @@ class ProductListWidget(FloatLayout):
             entry.removeObserver(observer)
 
     def addShoppingList(self, shoppingList):
-        self.shoppingLists.append(shoppingList)
+        if not self.shoppingList:
+            self.shoppingList = shoppingList
+        else:
+            self.shoppingList.merge(shoppingList)
 
         for product in shoppingList.getProducts():
-            self.__addProduct(product, shoppingList.persons)
+            self.__addProduct(product)
 
         self.expectedSum += shoppingList.realSum
 
-    def __addProduct(self, product, owners):
+    def __addProduct(self, product):
         new_entry = ProductEntryWidget()
         new_entry.setProduct(product)
-        new_entry.setOwners(owners)
+        new_entry.setOwners(product.getOwners())
 
         self.entry_widgets.append(new_entry)
         self.layout.add_widget(new_entry)
   
     def clear(self):
-        self.shoppingLists = []
+        self.shoppingList.clear()
         self.expectedSum = 0
         
         for widget in self.entry_widgets:
@@ -50,22 +54,10 @@ class ProductListWidget(FloatLayout):
         self.entry_widgets = []
 
     def getTotalSum(self):
-        return sum(shop_list.getTotalSum() for shop_list in self.shoppingLists)
+        return self.shoppingList.getTotalSum()
 
     def getRealSum(self):
         return self.expectedSum
 
     def getBill(self):
-        sum = {}
-        for shop_list in self.shoppingLists:
-            sum = self.__sumDicts(sum, shop_list.generateBill())
-
-        return sum
-
-    def __sumDicts(self, a, b):
-        for key in b.keys():
-            if key in a.keys():
-                a[key] += b[key]
-            else:
-                a[key] = b[key]
-        return a
+        return self.shoppingList.generateBill()
