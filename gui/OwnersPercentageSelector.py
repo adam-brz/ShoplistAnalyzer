@@ -18,7 +18,7 @@ class OwnersPercentageSelector(FloatLayout):
         self.personsSelectors = {}
 
         for person in persons:
-            default_percentage = person.getProductCount(product) * 100
+            default_percentage = self.product.getQuantityForOwner(person) * 100
             selector = PercentageSelector(person.name, default_percentage)
 
             self.layout.add_widget(selector)
@@ -26,7 +26,7 @@ class OwnersPercentageSelector(FloatLayout):
 
     def okayPressed(self):
         for person, selector in self.personsSelectors.items():
-            person.setProductCount(self.product, selector.getPercentage()/100)
+            self.product.setQuantityForOwner(person, selector.getPercentage()/100)
         
         self.ok()
 

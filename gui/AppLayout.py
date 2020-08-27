@@ -35,7 +35,9 @@ class AppLayout(FloatLayout):
         buttons.button_results.bind(on_release = self.resultsCallback)
 
     def validateExpectedCosts(self, instance, value):
-        if value: return
+        if value:
+            return
+
         costs = instance.text
 
         try:
@@ -46,12 +48,12 @@ class AppLayout(FloatLayout):
         self.ids.productList.expectedSum = costs
         self.updateTotalCosts()
 
+    def update(self, instance, value):
+        self.updateTotalCosts()
+
     def updateTotalCosts(self):
         self.ids.totalSumLabel.text = "Total sum: {0:.2f}".format(self.ids.productList.getTotalSum())
         self.realSumInput.text = "{0:.2f}".format(self.ids.productList.getRealSum())
-        
-    def update(self, instance, value):
-        self.updateTotalCosts()
 
     def parseFileCallback(self, event):
         filename = self.ids.file_input.text.strip()

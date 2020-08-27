@@ -1,30 +1,21 @@
 from kivy.uix.gridlayout import GridLayout
 from kivy.lang import Builder
+
 from gui.PersonSelectionWidget import PersonSelectionWidget
+from Observer import Observer
 import os
 
 Builder.load_file(os.path.join(os.path.dirname(__file__), "kv/product_entry.kv"))
 
-class ProductEntryWidget(GridLayout):
+class ProductEntryWidget(GridLayout, Observer):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.observers = set()
         self.product = None
         self.selectionWidget = self.ids.selection_widget
 
         self.attachObserver(self)
         self.ids.product_price.bind(text = self.notify)
         self.ids.product_price.bind(focus = self.validateText)
-        
-    def attachObserver(self, observer):
-        self.observers.add(observer)
-
-    def removeObserver(self, observer):
-        self.observers.remove(observer)
-
-    def notify(self, instance, value):
-        for observer in self.observers:
-            observer.update(instance, value)
 
     def update(self, instance, value):
         try:
@@ -37,6 +28,9 @@ class ProductEntryWidget(GridLayout):
     def validateText(self, instance, value):
         if not value:
             self.setPrice(self.product.price)
+
+    def getProduct(self):
+        return self.product
 
     def setProduct(self, product):
         self.product = product

@@ -2,7 +2,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.popup import Popup
 from kivy.clock import Clock
 
-from gui.PercentageButton import PercentageButton
+from gui.PersonSelector import PersonSelector
 from gui.OwnersPercentageSelector import OwnersPercentageSelector
 
 LONG_PRESS_TIME = 1
@@ -10,34 +10,37 @@ LONG_PRESS_TIME = 1
 class PersonSelectionWidget(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.selectorPerson = {}
+        self.selectors = []
         self.product = None
 
         self._clock = None
         self.rows = 1
 
     def getPersons(self):
-        return self.selectorPerson.values()
+        return [selector.person for selector in self.selectors]
 
     def setProduct(self, product):
         self.product = product
 
     def setPersons(self, persons):
-        for selector in self.selectorPerson:
+        for selector in self.selectors:
             self.remove_widget(selector)
 
-        self.selectorPerson = {}
+        self.selectors = []
  
         for person in persons:
-            selector = PercentageButton(person.name)
-            selector.attachObserver(self)
-            selector.setPercentage(self.getPersonPart(person) * 100)
+            self.addPerson(person)
 
-            self.add_widget(selector)
-            self.selectorPerson[selector] = person
+    def addPerson(self, person):
+        selector = PersonSelector(person)
+        selector.attachObserver(self)
+        selector.setPercentage(self.getPersonPart(person) * 100)
 
-    def update(self, selector):
-        person = self.selectorPerson[selector]
+        self.add_widget(selector)
+        self.selectors.append(selector)
+
+    def update(self, instance, value):
+        person = value
 
         product_count = self.getPersonPart(person)
         owner_count = self.getOwnerCount()
@@ -47,15 +50,16 @@ class PersonSelectionWidget(GridLayout):
             self.product.setQuantityForOwner(person, 0)
         elif not product_count:
             owner_count += 1
-            self.product.setQuantityForOwner(person, 1 / owner_count)
+            self.product.setQuantityForOwner(person, 1.0 / owner_count)
 
-        product_count = 1 / owner_count
-
-        for selector in self.selectorPerson:
-            owner = self.selectorPerson[selector]
+        self.updateCountForOwners(1.0 / owner_count)
+        
+    def updateCountForOwners(self, newCount):
+        for selector in self.selectors:
+            owner = selector.person
             if self.getPersonPart(owner):
-                self.product.setQuantityForOwner(owner, product_count)
-                selector.setPercentage(product_count * 100)
+                self.product.setQuantityForOwner(owner, newCount)
+                selector.setPercentage(newCount * 100)
             else:
                 selector.setPercentage(0)
 
@@ -101,7 +105,7 @@ class PersonSelectionWidget(GridLayout):
         self._popup.dismiss()
 
     def updateSelectors(self):
-        for selector in self.selectorPerson:
-            person = self.selectorPerson[selector]
+        for selector in self.selectors:
+            person = selector.person
             percentage = self.getPersonPart(person) * 100
             selector.setPercentage(percentage)
