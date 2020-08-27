@@ -1,9 +1,10 @@
 # -*- coding: UTF-8 -*-
 
 import unittest
-from tests.PersonTest import PersonTest
+from tests.OwnerInfoTest import OwnerInfoTest
+from tests.OwnerGroupTest import OwnerGroupTest
+from tests.ProductTest import ProductTest
 from tests.ShoppingListTest import ShoppingListTest
-from tests.ShoppingGeneratorTest import ShoppingGeneratorTest
 
 if __name__ == "__main__":
     unittest.main()

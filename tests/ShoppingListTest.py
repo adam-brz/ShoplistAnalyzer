@@ -2,6 +2,8 @@
 
 import unittest
 from ShoppingList import ShoppingList
+from OwnerGroup import OwnerGroupFactry
+from OwnerInfo import OwnerInfoFactory
 from Person import Person
 from Product import Product
 
@@ -9,57 +11,49 @@ NAMES = ["Andre", "Emma", "Iris"]
 ITEMS = [("bread", 3.00), ("milk", 2.40), ("butter", 4.50)]
 
 class ShoppingListTest(unittest.TestCase):
-    def testAddPerson(self):
+    def testGetTotalSum(self):
         shopping_list = ShoppingList()
 
-        for name in NAMES:
-            person = Person(name)            
-            shopping_list.addPerson(person)
+        for name, price in ITEMS:
+            product = Product(name, price)            
+            shopping_list.addProduct(product)
 
-            self.assertTrue(person in shopping_list.persons)
+        self.assertEqual(shopping_list.getTotalSum(), 9.90)
 
-    def testRemovePerson(self):
-        shopping_list = ShoppingList()
-        persons = [Person(name) for name in NAMES]
+    def testMerge(self):
+        shopping_list1 = ShoppingList()
+        shopping_list2 = ShoppingList()
 
-        for person in persons:        
-            shopping_list.addPerson(person)
+        shopping_list1.addProduct(Product("Test", 2))
+        shopping_list2.addProduct(Product("Test2", 4))
 
-        for person in persons:        
-            shopping_list.removePerson(person)
-            self.assertFalse(person in shopping_list.persons)
-
-    def testGetProducts(self):
-        shopping_list = ShoppingList()
-
-        i = 0
-        for name in NAMES:
-            person = Person(name)
-            product = Product(ITEMS[i][0], ITEMS[i][1])
-            person.addProduct(product)
-            
-            shopping_list.addPerson(person)
-            i += 1
-
-        products = set(item.name for item in shopping_list.getProducts())
-        expected = set(item[0] for item in ITEMS)
-
-        self.assertEqual(products, expected)
+        shopping_list1.merge(shopping_list2)
+        self.assertEqual(shopping_list1.getTotalSum(), 6)
 
     def testGenerateBill(self):
         shopping_list = ShoppingList()
-        persons = [Person(name) for name in NAMES]
-        products = [Product(x[0], x[1]) for x in ITEMS]
+        groupFactory = OwnerGroupFactry()
+        infoFactory = OwnerInfoFactory()
+        
+        persons = []
+        ownerInfoList = []
 
-        for person in persons:
-            shopping_list.addPerson(person)
+        for name in NAMES:
+            person = Person(name)
+            info = infoFactory.create(name, 0.33)
 
-        for i in range(len(persons)):
-            persons[i].addProduct(products[i])
+            ownerInfoList.append(info)
+            persons.append(person)
+
+        group = groupFactory.create(ownerInfoList)
+
+        for name, price in ITEMS:
+            product = Product(name, price, group)
+            shopping_list.addProduct(product)
 
         expected = {}
-        for i in range(len(NAMES)):
-            expected[NAMES[i]] = ITEMS[i][1]
+        for name in NAMES:
+            expected[name] = 9.90 * 0.33
 
         self.assertEqual(shopping_list.generateBill(), expected)
 
