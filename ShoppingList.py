@@ -2,31 +2,40 @@
 
 class ShoppingList:
     def __init__(self):
-        self.persons = []
-        self.bill = {}
+        self.clear()
+
+    def clear(self):
+        self.products = []
         self.realSum = 0
 
     def getProducts(self):
-        products = set()
+        return self.products
 
-        for person in self.persons:
-            products = products.union(person.getProducts())
+    def addProduct(self, product):
+        self.products.append(product)
 
-        return products
-    
-    def addPerson(self, person):
-        self.persons.append(person)
+    def removeProduct(self, product):
+        self.products.remove(product)
 
-    def removePerson(self, person):
-        self.persons.remove(person)
+    def merge(self, other):
+        self.products += other.products
+        self.realSum += other.realSum
 
     def getTotalSum(self):
-        return sum(person.getBill() for person in self.persons)
+        return sum(product.price for product in self.products)
 
     def generateBill(self):
-        self.bill = {}
+        bill = {}
 
-        for person in self.persons:
-            self.bill[person.name] = round(person.getBill(), 2)
+        for product in self.products:
+            bill = self.__addCosts(bill, product.costPerPerson())
 
-        return self.bill
+        return bill
+
+    def __addCosts(self, costs, other):
+        for key in costs.keys():
+            if key in other.keys():
+                other[key] += costs[key]
+            else:
+                other[key] = costs[key]
+        return other
