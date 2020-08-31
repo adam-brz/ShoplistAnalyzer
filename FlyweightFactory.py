@@ -18,3 +18,6 @@ class FlyweightFactory:
 
     def remove(self, item):
         self.flyweights.remove(item)
+
+    def clear(self):
+        self.flyweights.clear()

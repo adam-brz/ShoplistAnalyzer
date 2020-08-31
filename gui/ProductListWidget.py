@@ -6,6 +6,9 @@ from gui.ProductEntryWidget import ProductEntryWidget
 from ShoppingList import ShoppingList
 from Observer import Observer
 
+from OwnerGroup import OwnerGroupFactory
+from OwnerInfo import OwnerInfoFactory
+
 import os
 
 Builder.load_file(os.path.join(os.path.dirname(__file__), "kv/product_list.kv"))
@@ -61,6 +64,9 @@ class ProductListWidget(FloatLayout, Observer):
             self.layout.remove_widget(widget)
 
         self.entry_widgets = []
+
+        OwnerGroupFactory().clear()
+        OwnerInfoFactory().clear()
 
     def getTotalSum(self):
         return self.shoppingList.getTotalSum()
