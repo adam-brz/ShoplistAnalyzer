@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from OwnerGroup import OwnerGroupFactry
+from OwnerGroup import OwnerGroupFactory
 from OwnerInfo import OwnerInfoFactory
 
 class Product:
@@ -23,7 +23,7 @@ class Product:
         return self.ownerGroup.getQuantityForOwner(owner)
 
     def setQuantityForOwner(self, owner, quantity):
-        groupFactory = OwnerGroupFactry()
+        groupFactory = OwnerGroupFactory()
         infoFactory = OwnerInfoFactory()
 
         newInfo = infoFactory.create(owner, quantity)

@@ -1,16 +1,16 @@
 import unittest
-from OwnerGroup import OwnerGroup, OwnerGroupFactry
+from OwnerGroup import OwnerGroup, OwnerGroupFactory
 from OwnerInfo import OwnerInfoFactory
 
 class OwnerGroupTest(unittest.TestCase):
     def testFactorySingleton(self):
-        instance = OwnerGroupFactry()
-        instance2 = OwnerGroupFactry()
+        instance = OwnerGroupFactory()
+        instance2 = OwnerGroupFactory()
 
         self.assertIs(instance, instance2)
 
     def testGroupCreate(self):
-        groupFactory = OwnerGroupFactry()
+        groupFactory = OwnerGroupFactory()
         infoFactory = OwnerInfoFactory()
 
         info1 = infoFactory.create("Me", 1)
@@ -22,7 +22,7 @@ class OwnerGroupTest(unittest.TestCase):
         self.assertEqual(len(group), 2)
 
     def testGroupCreateOnce(self):
-        groupFactory = OwnerGroupFactry()
+        groupFactory = OwnerGroupFactory()
         infoFactory = OwnerInfoFactory()
 
         info1 = infoFactory.create("Me", 1)
@@ -36,7 +36,7 @@ class OwnerGroupTest(unittest.TestCase):
         self.assertIs(group1, group3)
 
     def testGroupCreateMany(self):
-        groupFactory = OwnerGroupFactry()
+        groupFactory = OwnerGroupFactory()
         infoFactory = OwnerInfoFactory()
 
         info1 = infoFactory.create("Me", 1)

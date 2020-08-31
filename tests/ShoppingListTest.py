@@ -2,7 +2,7 @@
 
 import unittest
 from ShoppingList import ShoppingList
-from OwnerGroup import OwnerGroupFactry
+from OwnerGroup import OwnerGroupFactory
 from OwnerInfo import OwnerInfoFactory
 from Person import Person
 from Product import Product
@@ -32,7 +32,7 @@ class ShoppingListTest(unittest.TestCase):
 
     def testGenerateBill(self):
         shopping_list = ShoppingList()
-        groupFactory = OwnerGroupFactry()
+        groupFactory = OwnerGroupFactory()
         infoFactory = OwnerInfoFactory()
         
         persons = []

@@ -2,9 +2,9 @@
 
 from FlyweightFactory import FlyweightFactory
 
-class OwnerGroupFactry(FlyweightFactory):
+class OwnerGroupFactory(FlyweightFactory):
     def __new__(self):
-        return FlyweightFactory.__new__(self, OwnerGroupFactry)
+        return FlyweightFactory.__new__(self, OwnerGroupFactory)
 
     def updateGroup(self, group, newInfo):
         oldInfo = list(group) if group else []

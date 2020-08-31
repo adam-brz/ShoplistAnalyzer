@@ -1,5 +1,5 @@
 import unittest
-from OwnerGroup import OwnerGroupFactry
+from OwnerGroup import OwnerGroupFactory
 from OwnerInfo import OwnerInfoFactory
 from Product import Product
 
@@ -12,7 +12,7 @@ class ProductTest(unittest.TestCase):
         self.assertEqual(product.costPerPerson(), {})
 
     def testGetCostsPerPerson(self):
-        groupFactory = OwnerGroupFactry()
+        groupFactory = OwnerGroupFactory()
         infoFactory = OwnerInfoFactory()
 
         info1 = infoFactory.create("Me", 0.25)

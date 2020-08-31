@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from ShoppingList import ShoppingList
-from OwnerGroup import OwnerGroupFactry
+from OwnerGroup import OwnerGroupFactory
 from OwnerInfo import OwnerInfoFactory
 from Person import Person
 from Product import Product
@@ -30,7 +30,7 @@ class ShoppingListGenerator:
         shopping_list = ShoppingList()
         shopping_list.realSum = realSum
 
-        groupFactory = OwnerGroupFactry()
+        groupFactory = OwnerGroupFactory()
         infoFactory = OwnerInfoFactory()
 
         infoList = [infoFactory.create(person, 1/len(self.persons)) 
